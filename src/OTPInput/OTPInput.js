@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./OTPInput.module.css";
+import { paste } from "@testing-library/user-event/dist/paste";
 export const OTPInput = () => {
     const [code, setCode] = useState(Array(6).fill(""));
     const regex = /^[0-9]+$/;
@@ -24,15 +25,19 @@ export const OTPInput = () => {
     };
 
     const handlePaste = (e) => {
-        const pasteText = e.clipboardData.getData("text");
-        const text = pasteText.split("").filter((ele) => regex.test(ele));
-        let newCode = [...text];
-        inputsRef.current[text.length].focus();
-        setCode(
-            Array(6)
-                .fill("")
-                .map((ele, index) => newCode[index] || "")
-        );
+        const pasteText = e.clipboardData.getData("text").slice(0, 6);
+        const pasteArray = pasteText.split("").filter((ele) => regex.test(ele));
+        let newCode = [...code];
+        if (pasteArray.length) {
+            pasteArray.forEach((char, index) => {
+                newCode[index] = char;
+            })
+
+            setCode(newCode);
+            inputsRef.current[pasteArray.length - 1].focus();
+        }
+
+
     };
 
     const handleKeyDown = (e, index) => {
@@ -56,6 +61,12 @@ export const OTPInput = () => {
             }
         }
     };
+
+    useEffect(() => {
+
+        inputsRef.current[0].focus()
+    }, [])
+
     return (
         <div className={styles["outer-container"]} onPaste={handlePaste}>
             <h1>React Simple OTP input</h1>
