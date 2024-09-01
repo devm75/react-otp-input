@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-otp-input/static/css/main.bba4252c.css",
+    "main.js": "/react-otp-input/static/js/main.710895e7.js",
+    "index.html": "/react-otp-input/index.html",
+    "main.bba4252c.css.map": "/react-otp-input/static/css/main.bba4252c.css.map",
+    "main.710895e7.js.map": "/react-otp-input/static/js/main.710895e7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bba4252c.css",
+    "static/js/main.710895e7.js"
+  ]
+}
